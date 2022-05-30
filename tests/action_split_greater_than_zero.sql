@@ -1,0 +1,1 @@
+select top 100 * from {{ source('PUBLIC', 'ACTION') }} where splits <= 0

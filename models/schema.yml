@@ -1,0 +1,42 @@
+
+version: 2
+
+models:
+  - name: PRICE_LATEST
+    description: "The latest price of symbols"
+    columns:
+      - name: symbol
+        description: "The symbol name"
+        tests:
+          - unique
+          - not_null
+
+sources:
+  - name: PUBLIC
+    tables:
+      - name: PRICE
+        loaded_at_field: "date::timestamp"
+        freshness:
+          warn_after:
+            count: 3
+            period: day
+          error_after:
+            count: 7
+            period: day        
+      - name: ACTION
+      - name: SYMBOL
+
+exposures:
+  - name: JUPYTER
+    type: dashboard
+    description: >
+      Did someone say "exponential growth"?
+    
+    depends_on:
+      - ref('PRICE_LATEST')
+      - source('PUBLIC', 'PRICE')
+      
+    owner:
+      name: infuseaidev
+      email: dev@infuseai.io
+  
