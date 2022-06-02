@@ -2,7 +2,6 @@ dataSources:
 - name: infuse_finance
   type: snowflake
   dbt:
-    project: infuse_finance
+    profile: infuse_finance
     target: dev
-    profile: ~/.dbt/profiles.yml
-    root: .
+    projectDir: .
