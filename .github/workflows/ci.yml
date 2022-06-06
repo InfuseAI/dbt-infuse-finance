@@ -45,4 +45,4 @@ jobs:
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
       - name: PipeRider CLI Action
-        uses: InfuseAI/piperider-action@v0.1.3
+        uses: InfuseAI/piperider-action@v0.1.3.11-alpha
