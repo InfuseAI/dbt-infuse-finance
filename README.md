@@ -1,32 +1,12 @@
 # dbt-infuse-finance
-This existed dbt demo project will help you explore `piperider-cli` journey.
 
-1. fork the dbt demo project
+This existed dbt demo project will help you explore
+[piperider-action](https://github.com/marketplace/actions/piperider-cli-action),
+which is our CI tool based on github actions.
 
-2. install project requirements, including `dbt-snowflake`, `snowflake-sqlalchemy` and `piperider-cli` itself.
+1. clone our dbt demo project
     
-    ```bash
-    pip install -r requirements.txt
-    ```
-    
-3. run following `dbt` commands
-    
-    ```bash
-    dbt init # fill out data warehouse credential
-    dbt run
-    dbt docs generate
-    ```
-    
-4. run following `piperider-cli` command in order
-    
-    ```bash
-    piperider-cli init # based on the current dbt project and no config required
-    piperider-cli debug
-    piperider-cli run
-    piperider-cli generate-report
-    ```
-    
-5. adjust dbt modeling `models/PRICE_PRESENT.sql`
+2. adjust dbt modeling `models/PRICE_PRESENT.sql`
     
     original version
     ```sql
@@ -42,18 +22,10 @@ This existed dbt demo project will help you explore `piperider-cli` journey.
     select * from {{ source('PUBLIC', 'PRICE') }} where PRICE.DATE >= '2021-01-01'
     ```
     
-6. profile and generate report for our new model
-    ```bash
-    dbt run --select PRICE_PRESENT
-    
-    piperider-cli run --table PRICE_PRESENT --generate-report
-    ```
-    
-7. compare two reports locally with interactive termianl UI
-    ```bash
-    piperider-cli compare-report  
-    ```
-    
-8. create a PR to this repo to trigger the CI workflow
+3. create a PR to this repo and the CI workflow, `piperider-action`, will be triggered:
     - the profiling result will be attached to PR comment.
-    - reports will be uploaded as CI's artifaces.
+   ![image info](./docs/assets/piperider-action-comment.png)
+    - reports will be uploaded as CI's artifacts.
+   ![image info](./docs/assets/piperider-action-artifacts.png)
+
+To explore more detail of dbt integration, please check our [developer document](./docs/Developer.md).
