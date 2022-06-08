@@ -3,8 +3,11 @@ env:
   ACTIONS_STEP_DEBUG: true
 
 on:
+  pull_request:
+    branches: [ main ]
   pull_request_target:
-
+    types:
+      - opened
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
