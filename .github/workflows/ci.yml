@@ -3,13 +3,7 @@ env:
   ACTIONS_STEP_DEBUG: true
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   pull_request_target:
-    types:
-      - opened
     paths:
       - 'models/**.sql'
 
