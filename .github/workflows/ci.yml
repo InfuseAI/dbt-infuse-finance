@@ -4,9 +4,6 @@ env:
 
 on:
   pull_request_target:
-    types: [opened, synchronize]
-    paths:
-      - 'models/**.sql'
 
 
   # Allows you to run this workflow manually from the Actions tab
