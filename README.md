@@ -28,4 +28,4 @@ which is our CI tool based on github actions.
     - reports will be uploaded as CI's artifacts.
    ![image info](./docs/assets/piperider-action-artifacts.png)
 
-To explore more detail of dbt integration, please check our [developer document](./docs/Developer.md).
+To explore more detail of dbt integration, please check our [integration journey](./docs/integration-dbt.md).
