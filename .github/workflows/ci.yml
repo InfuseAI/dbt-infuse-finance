@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  piperider-ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,8 +22,8 @@ jobs:
       - name: install dbt
         run: pip install -q 'dbt-snowflake==1.1.0'
 
-      - name: dbt run
-        run: dbt run --profiles-dir ./
+      - name: dbt docs generate
+        run: dbt docs generate --profiles-dir ./
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -33,8 +33,8 @@ jobs:
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
-      - name: dbt docs generate
-        run: dbt docs generate --profiles-dir ./
+      - name: dbt run
+        run: dbt run --profiles-dir ./
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -57,7 +57,7 @@ jobs:
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
           DBT_PROFILES_DIR: ${{ github.workspace }}
 
-      - name: Send custom message to Slack
+      - name: send custom message to Slack
         uses: slackapi/slack-github-action@v1.19.0
         with:
           payload: |
