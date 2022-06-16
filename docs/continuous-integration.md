@@ -1,27 +1,32 @@
-# dbt-infuse-finance 
+# Continuous Integration
 
-## III. Continuous Integration
 
 This section is going to share how we integrate PipeRider action into a dbt project.
 [PipeRider-Action](https://github.com/marketplace/actions/piperider-cli-action) is our 
 CI tool based on GitHub actions.
 
-Here is our CI workflow arrangement in this example:
+Here is our CI workflow arrangement in this project:
 https://github.com/InfuseAI/dbt-infuse-finance/blob/main/.github/workflows/ci.yml
 
-Because we would like to integrate with a dbt project, we need to state some steps before we run PiperRider Action.
+Because we would like to integrate with a dbt project, we need a few steps before we run PiperRider Action.
 
 1. We need to provide a dbt 
 [profiles.yml](https://github.com/InfuseAI/dbt-infuse-finance/blob/main/profiles.yml), which lists the credential we need.
-**Be cautious, please don't put your real credential into source control.** We can just leverage GitHub 
-(encrypted secrets)[https://docs.github.com/en/actions/security-guides/encrypted-secrets].
-Also, it's required to provide customized path of profile. 
+**Be cautious, please don't put your real credential into source control.**
+We can just leverage GitHub [encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
+Also, it's required to provide the `profiles-dir` when executing dbt.
 
-2. Running `dbt docs generate` is essential for PipeRider to know the target.
+2. Running `dbt docs generate` in advance is essential for PipeRider.
+PipeRider would refer artifacts from dbt.
 
-Here you're all set now!
+3. (Optional) We can also integrate a Slack notification with [Webhook](https://github.com/slackapi/slack-github-action).
+PipeRider outputs its exit status and execution result.
 
-1. clone our dbt demo project
+
+Here you're all set now! Then creating a PR will trigger the CI workflow, and you will get a result similar as
+this example [PR](https://github.com/InfuseAI/dbt-infuse-finance/pull/10).
+
+1. clone the dbt demo project
 
 2. adjust dbt modeling `models/PRICE_PRESENT.sql`
 
@@ -44,5 +49,3 @@ Here you're all set now!
    ![image info](./assets/piperider-action-comment.png)
     - reports will be uploaded as CI's artifacts.
    ![image info](./assets/piperider-action-artifacts.png)
-
-Here is a demo example [PR](https://github.com/InfuseAI/dbt-infuse-finance/pull/10) showing what it could look like.
