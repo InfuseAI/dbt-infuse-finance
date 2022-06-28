@@ -45,7 +45,7 @@ jobs:
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
       - name: PipeRider CLI Action
-        uses: InfuseAI/piperider-action@v0.1.3.17-alpha
+        uses: InfuseAI/piperider-action@v0.3.0-rc2-beta
         id: piperider
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
@@ -58,6 +58,7 @@ jobs:
           DBT_PROFILES_DIR: ${{ github.workspace }}
 
       - name: send custom message to Slack
+        if: always()
         uses: slackapi/slack-github-action@v1.19.0
         with:
           payload: |
