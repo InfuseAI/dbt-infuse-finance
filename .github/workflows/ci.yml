@@ -45,7 +45,7 @@ jobs:
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
       - name: PipeRider CLI Action
-        uses: InfuseAI/piperider-action@v0.2.0
+        uses: InfuseAI/piperider-action@v0.3.0-rc3-beta
         id: piperider
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
