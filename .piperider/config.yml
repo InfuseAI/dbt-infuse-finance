@@ -5,6 +5,5 @@ dataSources:
     profile: infuse_finance
     target: dev
     projectDir: .
-    cmd: test
 telemetry:
-  id: 3efd46b75d644de9a797d5b9d0549b5e
+  id: 61866387acfc4ffc9102cb41299b3065
