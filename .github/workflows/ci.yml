@@ -1,6 +1,4 @@
 name: piperider-ci
-env:
-  ACTIONS_STEP_DEBUG: true
 
 on:
   push:
@@ -19,33 +17,8 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - name: install dbt
-        run: pip install -q 'dbt-snowflake==1.1.0'
-
-      - name: dbt docs generate
-        run: dbt docs generate --profiles-dir ./
-        env:
-          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-
-      - name: dbt run
-        run: dbt run --profiles-dir ./
-        env:
-          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-
       - name: PipeRider CLI Action
-        uses: InfuseAI/piperider-action@v0.1.3.17-alpha
+        uses: InfuseAI/piperider-action@v0.3.0
         id: piperider
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
@@ -58,6 +31,7 @@ jobs:
           DBT_PROFILES_DIR: ${{ github.workspace }}
 
       - name: send custom message to Slack
+        if: always()
         uses: slackapi/slack-github-action@v1.19.0
         with:
           payload: |
