@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: PipeRider CLI Action
-        uses: InfuseAI/piperider-action@v0.5.0
+        uses: InfuseAI/piperider-action@v0.7.0
         id: piperider
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
